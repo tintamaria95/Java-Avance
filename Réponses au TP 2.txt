@@ -1,0 +1,81 @@
+## Exercice 1
+1. L'output est :
+42
+42
+24
+24
+24
+24
+
+Les deux 42 et deux 24 correspondent respectivement aux Sysout des int meth = 42 et int meth = 24 ainsi qu'aux appels des méthodes .printmeth() qui affichent les valeurs de meth() 42 et 24.
+La particularité de cet exemple concerne spécifiquement les deux derniers 24 car Mere mereFille = new Fille() signifie que l'objet Merefille appelle la valeur meth de Fille et ensuite appelle la méthode de la mère .printMeth() qui affiche la valeur meth() de la fille.
+
+
+2.
+Dans la class fille, on peut accéder à la méthode meth() de la classe ou accéder à la méthode meth() de la classe Mere si on utilise super.meth().
+Dans la classe Main(), on a accès à une seule méthode meth() qui dépend de l'objet qui l'appelle.
+
+3.
+Output :
+42
+42
+24
+42
+42
+42
+Il n'y a pas de redéfinition pour une méthode statique.(pas de polymorphisme pour les méthodes statiques)
+
+4.
+Même sortie que pour la question 3.
+Si le champ/méthode appelé est dans la classe fille, la valeur meth retournée est celle de la classe fille, sinon retourne le champ meth de la classe Mère.
+
+## Exercice 2
+
+1. 	
+	L'erreur de compilation qui survient deux fois est la suivante : "The method miage() is undefined for the type Mere"
+	La classe Mere ne définit pas la classe miage() donc lors de l'instanciation des Objets suivants et des appels de la méthode miage(), il y a donc erreurs de compilation.
+		Mere mere = new Mere();
+		Mere mereFille = new Fille();
+		
+		mere.miage();
+		mereFille.miage();
+	
+	Les autres erreurs dans le code apparaissent ci-dessous ainsi que mes actions pour éliminer ces erreurs :
+	"Cannot reduce the visibility of the inherited method from Mere" -> Changed the visibility of Fille.e() to "protected"
+	"The return type is incompatible with Mere.h()" -> I changed the type of Mere.h() to char
+	"The return type is incompatible with Mere.i()" -> I changed the type of Fille.i() to void and removed the "return"
+	"Exception Exception is not compatible with throws clause in Mere.k()" -> We must add an exception to Mere.k() (restriction plus forte dans la classe Mere)
+
+3.	Une redéfinition prend place dans la cas où on cherche à changer le comportement d'une méthode dans une classe fille de la méthode du même nom étant dans sa classe mère.
+	Une surcharge est le fait de créer des des méthodes ayant le même nom mais ayant un type et/ou nombre de paramètres différents.
+
+4.
+		fille.miage(); // output : Miage ; Appel de la fonction miage() de la classe Fille
+		((Fille) mereFille).miage(); // output : Miage ; Appel de la fonction miage() de la classe Fille via casting
+
+		mere.a(); // output : Mere_a ; Appel de la fonction a() de la classe Mere
+		mereFille.a(); // output : Fille_a ; Appel de la fonction a() de la classe Fille, polymorphisme implique utilisation de la méthode fille
+		fille.a(); // output : Fille_a ; Appel de la fonction a() de la classe Fille
+		((Mere) mereFille).a(); // output : Fille_a ; Appel de la fonction a() de la classe Fille (polymorphisme fait qu'on a accès à la méthode de la classe fille malgré le casting)
+		mereFille.b(null); // output : Fille_b(Fille); Appel de la fonction b() de la classe Fille (polymorphisme fait qu'on a accès à la méthode de la classe fille malgré le casting)
+
+		mereFille.c(); // output : Mere_c ; méthode uniquement présente dans la classe mère donc appelle de la méthode c() de la classe Mere
+		mereFille.c(mere); // output : Fille_c(Mere) ; Surchage de la méthode c() dans la classe fille
+		mereFille.c(mereFille); // output : Fille_c(Mere) ; Surchage de la méthode c() dans la classe fille
+		mereFille.c(fille); // output : Fille_c(Mere) ; Surchage de la méthode c() dans la classe fille, première méthode appelée ?
+		fille.c(fille); // output : Fille_c(Fille) ; 
+
+		mere.d(); // output : static Mere_d ; pas de polymorphisme avec les méthodes static
+		mereFille.d(); // output :static Mere_d ; pas de polymorphisme avec les méthodes static
+
+		mere.printF(); // output : Mere_f ; appel de la fonction printF de la classe mère -> liaison avec la méthode f() de la classe mère.
+		mereFille.printF(); // output : Mere_f ; appel de la fonction printF de la classe mère -> liaison avec la méthode f() de la classe mère.
+
+		mereFille.j(); // output : Fille_j ; polymorphisme, appel de la fonction fille j().
+		mereFille.k(); // output : Fille_k ; polymorphisme, appel de la fonction fille k().
+		mereFille.l(); // output : Fille_l ; polymorphisme, appel de la fonction fille l().
+		mereFille.m(); // output : Fille_m ; polymorphisme, appel de la fonction fille m().
+
+## Exercice 3
+
+
